@@ -6,3 +6,4 @@ exclude=
     settings.py
     env
     venv
+    
