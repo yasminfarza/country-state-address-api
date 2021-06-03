@@ -3,41 +3,53 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.8
-      - image: circleci/mysql:8.0.4
-        command:
-          [
-            "mysqld",
-            "--character-set-server=utf8mb4",
-            "--collation-server=utf8mb4_bin",
-          ]
         environment:
-          - MYSQL_ROOT_HOST: "%"
-          - MYSQL_ROOT_PASSWORD: root
-          - MYSQL_USER: root
-          - MYSQL_PASSWORD: test
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_HOST: localhost
+          MYSQL_DATABASE: country_state_address
+          MYSQL_USER: root
+          MYSQL_PASSWORD: password
+
     steps:
       - checkout
       - run:
-          name: Install MySQL CLI
+          name: Install things we need
           command: |
-            sudo apt update
+            sudo apt-get update
+            sudo apt-get install -y libzip-dev
+            sudo apt-get install -y zlib1g-dev libicu-dev g++
             sudo apt-get install default-mysql-client
+            sudo apt-get -y install mariadb-server
+      - run:
+          name: Start database server
+          command: |
+            sudo service mysql start
+            sleep 2
+            ps aux | grep mysql
+      - run:
+          name: make env
+          command: |
+            cp country_state_address/.env.example country_state_address/.env
+      - run:
+          name: install packages
+          command: |
+            pip install -r requirements.txt
+
+      - run:
+          name: mysql connection
+          command: |
+            sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('') where User='root'; update user set plugin='mysql_native_password'; FLUSH PRIVILEGES;"
+            sudo mysql_upgrade
+            sudo service mysql restart
+            mysql -h 127.0.0.1 -u root -e "create database country_state_address"
       - run:
           name: Wait for db
           command: python manage.py wait_for_db &&
-            python manage.py migrate &&
-            python manage.py runserver 0.0.0.0:8000
-      - run:
-          name: build
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
+            python manage.py migrate
       - run:
           name: test
           command: |
-            . venv/bin/activate
-            python3 manage.py test && flake8
+            python manage.py test && flake8
 workflows:
   version: 2
   test:
