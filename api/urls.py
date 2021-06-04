@@ -6,6 +6,7 @@ from api import views
 router = DefaultRouter()
 router.register('countries', views.CountryViewSet)
 router.register('states/(?P<country>[^/.]+)', views.StateViewSet)
+router.register('addresses', views.AddressViewSet)
 
 app_name = 'api'
 
