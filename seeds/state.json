@@ -1,0 +1,42 @@
+[
+{
+  "model": "core.state",
+  "pk": 16,
+  "fields": {
+    "name": "Dhaka",
+    "country": 20
+  }
+},
+{
+  "model": "core.state",
+  "pk": 17,
+  "fields": {
+    "name": "Chattagram",
+    "country": 20
+  }
+},
+{
+  "model": "core.state",
+  "pk": 18,
+  "fields": {
+    "name": "Khulna",
+    "country": 20
+  }
+},
+{
+  "model": "core.state",
+  "pk": 19,
+  "fields": {
+    "name": "New South Wales",
+    "country": 19
+  }
+},
+{
+  "model": "core.state",
+  "pk": 20,
+  "fields": {
+    "name": "South Australia",
+    "country": 19
+  }
+}
+]

@@ -4,8 +4,8 @@ from django.db import models
 class Country(models.Model):
     """"Country object"""
     name = models.CharField(max_length=100)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
     code = models.CharField(max_length=50)
 
     class Meta:

@@ -1,0 +1,42 @@
+[
+{
+  "model": "core.address",
+  "pk": 16,
+  "fields": {
+    "name": "Mirpur",
+    "house_number": "03",
+    "road_number": 5,
+    "state": 16
+  }
+},
+{
+  "model": "core.address",
+  "pk": 17,
+  "fields": {
+    "name": "Banani",
+    "house_number": "30",
+    "road_number": 9,
+    "state": 16
+  }
+},
+{
+  "model": "core.address",
+  "pk": 18,
+  "fields": {
+    "name": "New South Wales",
+    "house_number": "96 Peninsula Drive",
+    "road_number": 122,
+    "state": 19
+  }
+},
+{
+  "model": "core.address",
+  "pk": 19,
+  "fields": {
+    "name": "HUNGERFORD",
+    "house_number": "11  Holthouse Road",
+    "road_number": 456,
+    "state": 20
+  }
+}
+]

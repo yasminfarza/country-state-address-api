@@ -1,0 +1,52 @@
+[
+{
+  "model": "core.country",
+  "pk": 16,
+  "fields": {
+    "name": "Afghanistan",
+    "latitude": 33.93911,
+    "longitude": 67.709953,
+    "code": "AF"
+  }
+},
+{
+  "model": "core.country",
+  "pk": 17,
+  "fields": {
+    "name": "Armenia",
+    "latitude": 40.069099,
+    "longitude": 45.038189,
+    "code": "AM"
+  }
+},
+{
+  "model": "core.country",
+  "pk": 18,
+  "fields": {
+    "name": "Netherlands Antilles",
+    "latitude": 12.226079,
+    "longitude": -69.060087,
+    "code": "AN"
+  }
+},
+{
+  "model": "core.country",
+  "pk": 19,
+  "fields": {
+    "name": "Australia",
+    "latitude": -25.274398,
+    "longitude": 133.775136,
+    "code": "AU"
+  }
+},
+{
+  "model": "core.country",
+  "pk": 20,
+  "fields": {
+    "name": "Bangladesh",
+    "latitude": 23.684994,
+    "longitude": 90.356331,
+    "code": "BD"
+  }
+}
+]
