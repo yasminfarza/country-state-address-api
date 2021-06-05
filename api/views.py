@@ -2,12 +2,21 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from core.models import Country, State, Address
 from api import serializers
 
 
-class CountryViewSet(mixins.ListModelMixin,
+class BaseAttrViewSet():
+    """Manage Base attribute"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+
+class CountryViewSet(BaseAttrViewSet,
+                     mixins.ListModelMixin,
                      viewsets.GenericViewSet):
     """List of countries"""
     queryset = Country.objects.all()
@@ -26,7 +35,8 @@ class CountryViewSet(mixins.ListModelMixin,
         return queryset
 
 
-class StateViewSet(mixins.ListModelMixin,
+class StateViewSet(BaseAttrViewSet,
+                   mixins.ListModelMixin,
                    viewsets.GenericViewSet):
     """List of states by country"""
     queryset = State.objects.all()
@@ -44,7 +54,8 @@ class StateViewSet(mixins.ListModelMixin,
         return queryset
 
 
-class AddressViewSet(viewsets.ReadOnlyModelViewSet):
+class AddressViewSet(BaseAttrViewSet,
+                     viewsets.ReadOnlyModelViewSet):
     """List of address"""
     queryset = Address.objects.all()
     serializer_class = serializers.AddressSerializer

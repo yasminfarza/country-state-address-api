@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'core'
+    'rest_framework.authtoken',
+    'core',
+    'user',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -116,6 +119,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication',),
+}
 
 
 # Internationalization
