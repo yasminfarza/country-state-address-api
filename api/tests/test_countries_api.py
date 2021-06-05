@@ -26,7 +26,7 @@ class PublicCountryApiTests(TestCase):
 
 
 class PrivateCountryApiTests(TestCase):
-    """Test the authorized user country API"""
+    """Test the authorized country API"""
 
     def setUp(self):
         self.user = get_user_model().objects.create_user(
