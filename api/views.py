@@ -1,4 +1,7 @@
 
+from rest_framework.authentication import (SessionAuthentication,
+                                           BasicAuthentication)
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status
@@ -7,10 +10,17 @@ from core.models import Country, State, Address
 from api import serializers
 
 
-class CountryViewSet(mixins.ListModelMixin,
+class BaseAttrViewSet():
+    """Manage Base attribute"""
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class CountryViewSet(BaseAttrViewSet,
+                     mixins.ListModelMixin,
                      viewsets.GenericViewSet):
     """List of countries"""
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().order_by('-name')
     serializer_class = serializers.CountrySerializer
 
     def get_queryset(self):
@@ -26,10 +36,11 @@ class CountryViewSet(mixins.ListModelMixin,
         return queryset
 
 
-class StateViewSet(mixins.ListModelMixin,
+class StateViewSet(BaseAttrViewSet,
+                   mixins.ListModelMixin,
                    viewsets.GenericViewSet):
     """List of states by country"""
-    queryset = State.objects.all()
+    queryset = State.objects.all().order_by('-name')
     serializer_class = serializers.StateSerializer
 
     def get_queryset(self):
@@ -44,9 +55,10 @@ class StateViewSet(mixins.ListModelMixin,
         return queryset
 
 
-class AddressViewSet(viewsets.ReadOnlyModelViewSet):
+class AddressViewSet(BaseAttrViewSet,
+                     viewsets.ReadOnlyModelViewSet):
     """List of address"""
-    queryset = Address.objects.all()
+    queryset = Address.objects.all().order_by('-name')
     serializer_class = serializers.AddressSerializer
 
     def get_serializer_class(self):
